@@ -1,80 +1,40 @@
-import { Button, Form, Input, Modal } from 'antd';
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import { Button } from 'antd';
 import { useCreateProject } from '@/services';
-import { ICreateProjectRequestType } from '@shared';
+import { open } from '@tauri-apps/plugin-dialog';
 
 type IPropsType = {
   refreshData: () => void;
 };
 
 export const CreateProject = ({ refreshData }: IPropsType) => {
-  const [open, setOpen] = useState(false);
-  const [form] = Form.useForm<ICreateProjectRequestType>();
-  const [okDisabled, setOkDisabled] = useState(true);
-
-  const { fetchData: createUser, loading } = useCreateProject({
+  const { fetchData, loading } = useCreateProject({
     success: {
       message: 'Project created successfully',
       action: () => {
         refreshData();
-        setOpen(false);
       },
     },
   });
 
-  const handleOk = async () => {
-    const values = await form.validateFields();
-    await createUser({ data: values });
-  };
-
-  const handleFieldsChange = () => {
-    const hasErrors = form.getFieldsError().some((field) => field.errors.length > 0);
-    setOkDisabled(hasErrors);
+  const handleSelectFolder = async () => {
+    const selected = await open({
+      directory: true,
+    });
+    
+    if (typeof selected === 'string') {
+      fetchData({
+        data: {
+          name: selected,
+        },
+      });
+    }
   };
 
   return (
     <>
-      <Button
-        type="primary"
-        icon={
-          <Plus
-            size={16}
-            style={{
-              marginTop: 4,
-            }}
-          />
-        }
-        onClick={() => setOpen(true)}
-      >
+      <Button onClick={handleSelectFolder} loading={loading} type="primary">
         Create Project
       </Button>
-
-      <Modal
-        title="Create User"
-        open={open}
-        onOk={handleOk}
-        onCancel={() => setOpen(false)}
-        okText="Create"
-        okButtonProps={{ disabled: okDisabled, loading }}
-        afterClose={() => {
-          form.resetFields();
-          setOkDisabled(true);
-        }}
-        destroyOnHidden
-        centered
-        width={480}
-      >
-        <Form autoComplete="off" form={form} layout="vertical" onFieldsChange={handleFieldsChange}>
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[{ required: true, message: 'Please input name' }]}
-          >
-            <Input placeholder="Enter name" />
-          </Form.Item>
-        </Form>
-      </Modal>
     </>
   );
 };
