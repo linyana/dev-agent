@@ -1,24 +1,21 @@
 import { Button, Modal, Input, Form } from 'antd';
 import { useState } from 'react';
 import { open } from '@tauri-apps/plugin-dialog';
-import { Command } from '@tauri-apps/plugin-shell';
 import { useCreateProject } from '@/services';
 
 type IPropsType = {
   refreshData: () => void;
 };
 
-type ProjectType = {
+type ProjectFormType = {
   name: string;
   path: string;
   description?: string;
-  repo?: string;
 };
 
 export const CreateProject = ({ refreshData }: IPropsType) => {
   const [openModal, setOpenModal] = useState(false);
-  const [form] = Form.useForm<ProjectType>();
-  const [loadingGit, setLoadingGit] = useState(false);
+  const [form] = Form.useForm<ProjectFormType>();
 
   const { fetchData, loading } = useCreateProject({
     success: {
@@ -35,24 +32,6 @@ export const CreateProject = ({ refreshData }: IPropsType) => {
     return path.split(/[\\/]/).pop() || path;
   };
 
-  const getGitRepo = async (path: string) => {
-    try {
-      setLoadingGit(true);
-
-      const cmd = Command.create('git', ['-C', path, 'remote', 'get-url', 'origin']);
-
-      const result = await cmd.execute();
-      console.log(result);
-
-      return result.stdout.trim();
-    } catch(error) {
-      console.log(error)
-      return '';
-    } finally {
-      setLoadingGit(false);
-    }
-  };
-
   const handleSelectFolder = async () => {
     const selected = await open({
       directory: true,
@@ -61,30 +40,18 @@ export const CreateProject = ({ refreshData }: IPropsType) => {
 
     if (typeof selected !== 'string') return;
 
-    const name = getFolderName(selected);
-
     form.setFieldsValue({
-      name,
+      name: getFolderName(selected),
       path: selected,
       description: '',
-      repo: '',
     });
 
     setOpenModal(true);
-
-    const repo = await getGitRepo(selected);
-
-    form.setFieldsValue({
-      repo,
-    });
   };
 
   const handleSubmit = async () => {
     const values = await form.validateFields();
-
-    await fetchData({
-      data: values,
-    });
+    await fetchData({ data: values });
   };
 
   return (
@@ -116,10 +83,6 @@ export const CreateProject = ({ refreshData }: IPropsType) => {
 
           <Form.Item label="Description" name="description">
             <Input.TextArea placeholder="Optional" />
-          </Form.Item>
-
-          <Form.Item label="Git Repo" name="repo">
-            <Input disabled />
           </Form.Item>
         </Form>
       </Modal>

@@ -8,6 +8,12 @@ const app = new Elysia({ prefix: '/api' })
   .onAfterHandle(transormResponse)
   .onError(({ error }) => {
     console.error(error);
+    const msg = 'message' in error ? error.message : 'Unknown error';
+    return {
+      status: 400,
+      data: null,
+      meta: { message: msg },
+    };
   })
   .use(projectController)
   .listen(48327);

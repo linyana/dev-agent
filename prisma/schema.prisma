@@ -8,8 +8,20 @@ generator client {
 }
 
 model projects {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  path        String
+  description String   @default("")
+  repo        String   @default("")
+  branch      String   @default("")
+  githubOwner String   @default("")
+  githubRepo  String   @default("")
+  githubUrl   String   @default("")
+  githubDesc  String   @default("")
+  githubStars Int      @default(0)
+  githubForks Int      @default(0)
+  githubLang  String   @default("")
+  isPrivate   Boolean  @default(false)
 }
