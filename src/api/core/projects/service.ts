@@ -16,8 +16,12 @@ class ProjectService {
     return null;
   }
 
+  async deleteProject(id: number) {
+    return prisma.projects.delete({ where: { id } });
+  }
+
   async createProject(ctx: { body: ICreateProjectRequestType }) {
-    const { name, path, description } = ctx.body;
+    const { name, path, description, color } = ctx.body;
 
     const git = simpleGit(path);
 
@@ -94,6 +98,7 @@ class ProjectService {
         githubForks,
         githubLang,
         isPrivate,
+        ...(color ? { color } : {}),
       },
     });
   }

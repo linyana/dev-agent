@@ -1,22 +1,24 @@
 import { IProjectType } from '@shared';
 import { Card, Flex, Tag, Typography } from 'antd';
-import { Edit, Folder, GitBranch, MoreHorizontal, Settings, Star } from 'lucide-react';
+import { Folder, GitBranch, Star } from 'lucide-react';
+import { DeleteProject } from '../Delete';
 
 const { Meta } = Card;
 const { Text } = Typography;
 
 type IPropsType = {
   project: IProjectType;
+  onDeleted: () => void;
 };
 
-export const ProjectCard = ({ project }: IPropsType) => {
+export const ProjectCard = ({ project, onDeleted }: IPropsType) => {
   return (
     <Card
       style={{ width: 300 }}
       cover={
         <div
           style={{
-            backgroundColor: 'rgb(95, 123, 216)',
+            backgroundColor: project.color || '#5F7BD8',
             height: 120,
             display: 'flex',
             alignItems: 'center',
@@ -31,9 +33,7 @@ export const ProjectCard = ({ project }: IPropsType) => {
         </div>
       }
       actions={[
-        <Settings key="setting" size={18} style={{ verticalAlign: 'middle' }} />,
-        <Edit key="edit" size={18} style={{ verticalAlign: 'middle' }} />,
-        <MoreHorizontal key="ellipsis" size={18} style={{ verticalAlign: 'middle' }} />,
+        <DeleteProject key="delete" project={project} refreshData={onDeleted} />,
       ]}
     >
       <Meta

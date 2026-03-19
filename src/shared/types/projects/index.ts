@@ -16,6 +16,7 @@ export type IProjectType = {
   githubForks: number;
   githubLang: string;
   isPrivate: boolean;
+  color: string;
   createdAt: string;
   updatedAt: string;
 };

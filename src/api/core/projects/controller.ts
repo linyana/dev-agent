@@ -4,4 +4,5 @@ import { CreateProjectSchema } from '@shared';
 
 export const projectController = new Elysia({ prefix: '/projects' })
   .get('/', projectService.getProjects)
-  .post('/', (ctx) => projectService.createProject(ctx), CreateProjectSchema);
+  .post('/', (ctx) => projectService.createProject(ctx), CreateProjectSchema)
+  .delete('/:id', (ctx) => projectService.deleteProject(Number(ctx.params.id)));

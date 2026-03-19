@@ -5,6 +5,7 @@ export const CreateProjectSchema = {
     name: t.String(),
     path: t.String(),
     description: t.Optional(t.String()),
+    color: t.Optional(t.String()),
   }),
 };
 

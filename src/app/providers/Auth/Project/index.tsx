@@ -76,7 +76,7 @@ export const Project = () => {
           }}
         >
           {projects?.map((project) => (
-            <ProjectCard project={project} />
+            <ProjectCard key={project.id} project={project} onDeleted={fetchData} />
           ))}
         </Flex>
       </Flex>

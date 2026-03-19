@@ -24,4 +24,5 @@ model projects {
   githubForks Int      @default(0)
   githubLang  String   @default("")
   isPrivate   Boolean  @default(false)
+  color       String   @default("#5F7BD8")
 }

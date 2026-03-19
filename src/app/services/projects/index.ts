@@ -32,3 +32,13 @@ export const useCreateProject = <
     method: 'post',
     ...params,
   });
+
+export const useDeleteProject = (
+  id: number | string,
+  params?: IHttpType,
+) =>
+  useHttp({
+    url: `/projects/${id}`,
+    method: 'delete',
+    ...params,
+  });
