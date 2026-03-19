@@ -1,11 +1,11 @@
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { projectController } from './core';
-import { transormResponse } from './common';
+import { transformResponse } from './common';
 
 const app = new Elysia({ prefix: '/api' })
   .use(cors())
-  .onAfterHandle(transormResponse)
+  .onAfterHandle(transformResponse)
   .onError(({ error }) => {
     console.error(error);
     const msg = 'message' in error ? error.message : 'Unknown error';

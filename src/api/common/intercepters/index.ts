@@ -1,4 +1,4 @@
-export const transormResponse = ({ responseValue }: any) => {
+export const transformResponse = ({ responseValue }: any) => {
   if (responseValue instanceof Response) return responseValue;
 
   const data = responseValue;

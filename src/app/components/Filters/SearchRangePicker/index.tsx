@@ -45,7 +45,7 @@ export const SearchRangePicker = ({
       name={name}
       label={label ? <Text strong={isLabelStrong}>{label}</Text> : undefined}
       style={{
-        flex: isMobile ? '1' : '1',
+        flex: '1',
         minWidth: 200,
       }}
       {...restFormItemProps}
