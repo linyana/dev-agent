@@ -18,7 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/app/*"],
-      "@shared": ["./src/shared/index"],
+      "@constants": ["./src/constants/index"],
       "@api/*": ["./src/api/*"]
     }
   },

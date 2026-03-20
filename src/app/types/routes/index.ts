@@ -1,4 +1,4 @@
-import type { PERMISSION } from '@shared';
+import type { PERMISSION } from '@constants';
 import type { RouteObject } from 'react-router-dom';
 
 export type ILayoutType = 'DEFAULT' | 'BLANK' | 'CENTERED' | 'BASIC';

@@ -1,4 +1,4 @@
-import type { IPaginationType } from '@shared';
+import type { IPaginationType } from '@api/types';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export type IMessageType = 'default' | null | string;

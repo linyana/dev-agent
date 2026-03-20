@@ -1,4 +1,4 @@
-import { PLATFORM } from '@shared';
+import { PLATFORM } from '@constants';
 import { Method } from 'axios';
 
 export type IHttpRequestType = {

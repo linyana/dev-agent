@@ -1,6 +1,6 @@
-import Elysia, { t } from 'elysia';
+import Elysia from 'elysia';
 import { projectService } from './service';
-import { CreateProjectSchema } from '@shared';
+import { CreateProjectSchema } from '@api/core/projects/types';
 
 export const projectController = new Elysia({ prefix: '/projects' })
   .get('/', projectService.getProjects)

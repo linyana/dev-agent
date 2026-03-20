@@ -10,7 +10,7 @@ export default defineConfig(async () => ({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/app'),
-      '@shared': path.resolve(__dirname, './src/shared'),
+      '@constants': path.resolve(__dirname, './src/constants'),
     },
   },
   server: {

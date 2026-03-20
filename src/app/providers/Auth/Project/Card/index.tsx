@@ -1,7 +1,7 @@
-import { IProjectType } from '@shared';
 import { Card, Flex, Tag, Typography } from 'antd';
 import { Folder, GitBranch, Star } from 'lucide-react';
 import { DeleteProject } from '../Delete';
+import { IProjectType } from '@api/core/projects/types';
 
 const { Meta } = Card;
 const { Text } = Typography;
@@ -32,9 +32,7 @@ export const ProjectCard = ({ project, onDeleted }: IPropsType) => {
           )}
         </div>
       }
-      actions={[
-        <DeleteProject key="delete" project={project} refreshData={onDeleted} />,
-      ]}
+      actions={[<DeleteProject key="delete" project={project} refreshData={onDeleted} />]}
     >
       <Meta
         avatar={<Folder size={18} style={{ verticalAlign: 'middle' }} />}

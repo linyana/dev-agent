@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { IHttpRequestType } from './types';
-import { PLATFORM } from '@shared';
+import { PLATFORM } from '@constants';
 import { prisma } from '../prisma/service';
 import { BaseHttpService } from './services/base.service';
 import { githubHttpService } from './services/github/service';

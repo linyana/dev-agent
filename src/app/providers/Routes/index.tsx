@@ -5,7 +5,7 @@ import { LayoutProvider } from '../Layout';
 import { RouteError } from '@/components';
 import { useGlobal } from '@/hooks';
 import type { ILayoutType, IMenuPositionType, IRouteType } from '@/types';
-import { PERMISSION } from '@shared';
+import { PERMISSION } from '@constants';
 import { hasAnyPermission } from '@/utils';
 
 const normalizeRoutes = (

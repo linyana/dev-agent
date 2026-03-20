@@ -1,5 +1,5 @@
 import { prisma } from '@api/utils';
-import { ICreateProjectRequestType } from '@shared';
+import { ICreateProjectRequestType } from '@api/core/projects/types';
 import simpleGit from 'simple-git';
 import { Octokit } from '@octokit/rest';
 

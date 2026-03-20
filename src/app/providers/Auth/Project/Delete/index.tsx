@@ -1,31 +1,31 @@
-import { useState } from 'react'
-import { Button, Modal, Typography } from 'antd'
-import { Trash2 } from 'lucide-react'
-import { useDeleteProject } from '@/services'
-import { IProjectType } from '@shared'
+import { useState } from 'react';
+import { Button, Modal, Typography } from 'antd';
+import { Trash2 } from 'lucide-react';
+import { useDeleteProject } from '@/services';
+import { IProjectType } from '@api/core/projects/types';
 
-const { Paragraph, Text } = Typography
+const { Paragraph, Text } = Typography;
 
 type IPropsType = {
-  project: IProjectType
-  refreshData: () => void
-}
+  project: IProjectType;
+  refreshData: () => void;
+};
 
 export const DeleteProject = ({ project, refreshData }: IPropsType) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const { fetchData, loading } = useDeleteProject(project.id, {
     success: {
       action: () => {
-        refreshData()
-        setOpen(false)
+        refreshData();
+        setOpen(false);
       },
     },
-  })
+  });
 
   const handleOk = () => {
-    fetchData()
-  }
+    fetchData();
+  };
 
   return (
     <>
@@ -34,8 +34,8 @@ export const DeleteProject = ({ project, refreshData }: IPropsType) => {
         danger
         icon={<Trash2 size={14} />}
         onClick={(e) => {
-          e.stopPropagation()
-          setOpen(true)
+          e.stopPropagation();
+          setOpen(true);
         }}
       />
 
@@ -50,12 +50,9 @@ export const DeleteProject = ({ project, refreshData }: IPropsType) => {
         destroyOnHidden
       >
         <Paragraph>
-          Are you sure you want to delete the project:
-          {' '}
-          <Text strong>{project.name}</Text>
-          ?
+          Are you sure you want to delete the project: <Text strong>{project.name}</Text>?
         </Paragraph>
       </Modal>
     </>
-  )
-}
+  );
+};

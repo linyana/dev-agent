@@ -1,4 +1,4 @@
-import { PERMISSION } from '@shared';
+import { PERMISSION } from '@constants';
 
 export type IStateType = {
   token: string;

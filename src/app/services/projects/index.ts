@@ -4,7 +4,7 @@ import {
   ICreateProjectRequestType,
   IGetProjectListRequestType,
   IGetProjectListResponseType,
-} from '@shared';
+} from '@api/core/projects/types';
 
 export const useGetProjects = <
   T extends IHttpGenerics = {
@@ -33,10 +33,7 @@ export const useCreateProject = <
     ...params,
   });
 
-export const useDeleteProject = (
-  id: number | string,
-  params?: IHttpType,
-) =>
+export const useDeleteProject = (id: number | string, params?: IHttpType) =>
   useHttp({
     url: `/projects/${id}`,
     method: 'delete',

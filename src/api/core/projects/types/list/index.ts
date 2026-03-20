@@ -1,4 +1,5 @@
-import { IFilterType, IProjectType } from '../..';
+import { IFilterType } from '@api/types';
+import { IProjectType } from '..';
 
 export type IGetProjectListRequestType = IFilterType;
 

@@ -1,4 +1,4 @@
-import { PERMISSION } from '@shared';
+import { PERMISSION } from '@constants';
 
 export const selectPermission = (permission: PERMISSION) => permission;
 export const hasPermission = (currentPermission: PERMISSION, permission: PERMISSION) =>

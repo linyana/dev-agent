@@ -1,4 +1,4 @@
-import type { IPaginationType } from '@shared';
+import type { IPaginationType } from '@api/types';
 import { Table, Typography, type TableProps } from 'antd';
 
 type IPropsType<T> = TableProps<T> & {
