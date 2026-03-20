@@ -136,14 +136,6 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
               {children}
             </div>
           </Layout.Content>
-
-          <Layout.Footer
-            style={{
-              padding: LAYOUT.PADDING,
-            }}
-          >
-            <Footer />
-          </Layout.Footer>
         </Layout>
       </Layout>
     </Layout>
