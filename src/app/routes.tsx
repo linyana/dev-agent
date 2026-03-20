@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import type { IRouteType } from '@/types';
-import { LayoutDashboard, Plug, Settings, NotepadText } from 'lucide-react';
+import { LayoutDashboard, Plug, Settings, NotepadText, LayoutDashboardIcon } from 'lucide-react';
+import { Dashboard } from './pages';
 
 const NotFound = () => {
   throw new Response('Not Found', {
@@ -13,10 +14,20 @@ export const routes: IRouteType[] = [
   {
     id: '/',
     path: '/',
-    element: <></>,
+    element: <Dashboard />,
     handle: {
-      auth: false,
-      layout: 'BASIC',
+      layout: 'DEFAULT',
+      menu: {
+        label: 'Dashboard',
+        icon: (
+          <LayoutDashboardIcon
+            size={18}
+            style={{
+              verticalAlign: 'middle',
+            }}
+          />
+        ),
+      },
     },
   },
   {

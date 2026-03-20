@@ -2,6 +2,7 @@ import { Card, Flex, Typography } from 'antd';
 import { Folder } from 'lucide-react';
 import { DeleteProject } from '../Delete';
 import { IProjectType } from '@api/core/projects/types';
+import { useGlobal } from '@/hooks';
 
 const { Meta } = Card;
 const { Text } = Typography;
@@ -12,9 +13,22 @@ type IPropsType = {
 };
 
 export const ProjectCard = ({ project, onDeleted }: IPropsType) => {
+  const {
+    actions: { set },
+  } = useGlobal();
+
   return (
     <Card
       style={{ width: 300 }}
+      hoverable
+      onClick={() => {
+        set({
+          project: {
+            id: project.id,
+            name: project.name,
+          },
+        });
+      }}
       cover={
         <div
           style={{

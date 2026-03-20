@@ -54,7 +54,6 @@ export const CreateProject = ({ refreshData }: IPropsType) => {
     setOpenModal(true);
 
     const path = await desktopDir();
-    console.log(path);
     form.setFieldsValue({
       name: 'DeskTop',
       path: path,
@@ -95,6 +94,7 @@ export const CreateProject = ({ refreshData }: IPropsType) => {
         onOk={handleSubmit}
         confirmLoading={loading}
         destroyOnHidden
+        centered
       >
         <Form layout="vertical" form={form} initialValues={{ color: '#5F7BD8' }}>
           <Form.Item label="Path">
