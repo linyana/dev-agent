@@ -1,5 +1,5 @@
-import { Card, Flex, Tag, Typography } from 'antd';
-import { Folder, GitBranch, Star } from 'lucide-react';
+import { Card, Flex, Typography } from 'antd';
+import { Folder } from 'lucide-react';
 import { DeleteProject } from '../Delete';
 import { IProjectType } from '@api/core/projects/types';
 
@@ -24,13 +24,7 @@ export const ProjectCard = ({ project, onDeleted }: IPropsType) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-        >
-          {project.githubOwner && (
-            <Text style={{ color: '#fff', fontSize: 14 }}>
-              {project.githubOwner}/{project.githubRepo}
-            </Text>
-          )}
-        </div>
+        ></div>
       }
       actions={[<DeleteProject key="delete" project={project} refreshData={onDeleted} />]}
     >
@@ -40,21 +34,8 @@ export const ProjectCard = ({ project, onDeleted }: IPropsType) => {
         description={
           <Flex vertical gap={4}>
             <Text type="secondary" ellipsis style={{ fontSize: 12 }}>
-              {project.description || project.githubDesc || project.path}
+              {project.description || project.path}
             </Text>
-            <Flex gap={4} wrap>
-              {project.githubLang && <Tag>{project.githubLang}</Tag>}
-              {project.branch && (
-                <Tag icon={<GitBranch size={10} style={{ marginRight: 4 }} />}>
-                  {project.branch}
-                </Tag>
-              )}
-              {project.githubStars > 0 && (
-                <Tag icon={<Star size={10} style={{ marginRight: 4 }} />}>
-                  {project.githubStars}
-                </Tag>
-              )}
-            </Flex>
           </Flex>
         }
       />
