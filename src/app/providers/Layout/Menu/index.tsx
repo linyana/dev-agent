@@ -1,109 +1,48 @@
-/* eslint-disable no-restricted-syntax */
-import React, { useMemo, useState, useEffect } from 'react';
-import { Menu } from 'antd';
+import React, { useMemo } from 'react';
+import { Segmented } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { IMenuPositionType, IRouteType } from '@/types';
-
-const isMenuRoute = (position: IMenuPositionType) => (route: IRouteType) => {
-  const { handle: { menu } = {}, path = '' } = route;
-  if (!menu) return false;
-  const pos = (menu.position ?? 'TOP') === position;
-  const valid = path && !path.includes('*');
-  return pos && valid;
-};
-
-const joinPaths = (basePath: string, subPath?: string) => {
-  if (!subPath) return basePath;
-  if (subPath.includes('https://')) return subPath;
-  return `${basePath.replace(/\/$/, '')}/${subPath.replace(/^\//, '')}`;
-};
-
-const buildMenuItem = (route: IRouteType, parentPath = ''): any | null => {
-  const menu = route?.handle?.menu;
-  if (!menu) return null;
-
-  const fullPath = route.path ? joinPaths(parentPath, route.path) : parentPath;
-
-  const children =
-    route.children?.map((child: IRouteType) => buildMenuItem(child, fullPath)).filter(Boolean) ||
-    [];
-
-  return {
-    key: children.length ? `${fullPath}__group` : fullPath,
-    label: menu.label,
-    icon: menu.icon,
-    ...(children.length
-      ? {
-          children,
-        }
-      : {}),
-  };
-};
-
-const collectKeys = (items: any[]): string[] =>
-  items.flatMap((item) => [item.key, ...(item.children ? collectKeys(item.children) : [])]);
+import type { IRouteType } from '@/types';
+import { Icon } from '@/components';
+import { useMobile } from '@/hooks';
 
 export const LayoutRouteMenu: React.FC<{
-  position: IMenuPositionType;
-  style?: React.CSSProperties;
   routes: IRouteType[];
-}> = ({ position, style, routes }) => {
-  const [openKeys, setOpenKeys] = useState<string[]>([]);
+}> = ({ routes }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const isMobile = useMobile();
 
-  const items = useMemo(
-    () =>
-      routes
-        .filter(isMenuRoute(position))
-        .map((r) => buildMenuItem(r))
-        .filter(Boolean),
-    [routes, position],
-  );
+  const options = useMemo(() => {
+    return routes
+      .filter((r) => r?.handle?.menu)
+      .map((r) => ({
+        label: r?.handle?.menu?.label,
+        value: r.path,
+        icon: r?.handle?.menu?.iconName ? (
+          <Icon name={r.handle.menu.iconName} size={isMobile ? 14 : 18} />
+        ) : null,
+      }));
+  }, [routes, isMobile]);
 
-  const selectedKey = useMemo(() => {
-    const { pathname } = location;
-    const keys = collectKeys(items);
-    return keys.reduce(
-      (match, key) => (pathname.startsWith(key) && key.length > match.length ? key : match),
-      '',
-    );
-  }, [location.pathname, items]);
+  const current = useMemo(() => {
+    const match = routes.find((r) => location.pathname.startsWith(r.path || ''));
+    return match?.path;
+  }, [location.pathname, routes]);
 
-  useEffect(() => {
-    if (!selectedKey) return;
-
-    const findParents = (nodes: any[], parents: string[] = []): string[] => {
-      for (const node of nodes) {
-        if (node.key === selectedKey) return parents;
-        if (node.children) {
-          const res = findParents(node.children, [...parents, node.key]);
-          if (res.length) return res;
-        }
-      }
-      return [];
-    };
-
-    const parentKeys = findParents(items);
-    setOpenKeys(parentKeys);
-  }, [selectedKey, items]);
+  console.log(location.pathname);
+  console.log(options);
+  console.log(current);
 
   return (
-    <Menu
-      mode="inline"
-      items={items}
-      theme="light"
-      selectedKeys={selectedKey ? [selectedKey] : []}
-      openKeys={openKeys}
-      onOpenChange={(keys) => setOpenKeys(keys as string[])}
-      onClick={(e) => {
-        if (e.key.includes('http')) {
-          window.open(e.key);
-        } else {
-          navigate(e.key);
+    <Segmented
+      size={isMobile ? 'medium' : 'large'}
+      options={options}
+      value={current}
+      onChange={(val) => {
+        if (typeof val === 'string') {
+          navigate(val);
         }
       }}
-      style={style}
     />
   );
 };

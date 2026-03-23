@@ -1,14 +1,6 @@
-import { Navigate } from 'react-router-dom';
 import type { IRouteType } from '@/types';
-import {
-  LayoutDashboard,
-  Plug,
-  Settings,
-  NotepadText,
-  LayoutDashboardIcon,
-  ListIcon,
-} from 'lucide-react';
-import { Dashboard, Tasks } from './pages';
+import { Dashboard, Editor } from './pages';
+import { Icon } from './components';
 
 const NotFound = () => {
   throw new Response('Not Found', {
@@ -19,38 +11,24 @@ const NotFound = () => {
 
 export const routes: IRouteType[] = [
   {
-    id: '/',
-    path: '/',
+    id: '/dashboard',
+    path: '/dashboard',
     element: <Dashboard />,
     handle: {
       menu: {
         label: 'Dashboard',
-        icon: (
-          <LayoutDashboardIcon
-            size={18}
-            style={{
-              verticalAlign: 'middle',
-            }}
-          />
-        ),
+        iconName: 'LayoutDashboard',
       },
     },
   },
   {
-    id: '/tasks',
-    path: '/tasks',
-    element: <Tasks />,
+    id: '/editor',
+    path: '/editor',
+    element: <Editor />,
     handle: {
       menu: {
-        label: 'Tasks',
-        icon: (
-          <ListIcon
-            size={18}
-            style={{
-              verticalAlign: 'middle',
-            }}
-          />
-        ),
+        label: 'Editor',
+        iconName: 'Workflow',
       },
     },
   },

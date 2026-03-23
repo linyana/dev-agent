@@ -23,6 +23,9 @@ export const ThemeProvider = ({ children }: IPropsType) => (
             defaultShadow: 'none',
             dangerShadow: 'none',
           },
+          Segmented: {
+            trackBg: 'rgba(230, 230, 230, 0.8)',
+          }
         },
       }}
     >
