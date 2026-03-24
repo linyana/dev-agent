@@ -1,13 +1,9 @@
 'use client';
 
 import { theme, Form, Input, Select } from 'antd';
-import { type Node } from '@xyflow/react';
+import { useCallback, useState } from 'react';
+import { type Node, useOnSelectionChange, useReactFlow } from '@xyflow/react';
 import { NODE_SCHEMAS } from '../Nodes/constants';
-
-type IPropsType = {
-  selectedNode?: Node<NodeData>;
-  onChange?: (patch: Partial<NodeData>) => void;
-};
 
 type NodeData = {
   label: string;
@@ -16,10 +12,44 @@ type NodeData = {
   [key: string]: any;
 };
 
-export const Properties = ({ selectedNode, onChange }: IPropsType) => {
+export const Properties = () => {
   const {
     token: { colorBorder },
   } = theme.useToken();
+  const { setNodes } = useReactFlow();
+  const [selectedNode, setSelectedNode] = useState<Node<NodeData> | undefined>(undefined);
+
+  useOnSelectionChange({
+    onChange: ({ nodes }) => {
+      setSelectedNode(nodes[0] as Node<NodeData> | undefined);
+    },
+  });
+
+  const onChange = useCallback(
+    (patch: Partial<NodeData>) => {
+      if (!selectedNode) {
+        return;
+      }
+
+      setNodes((nodes) =>
+        nodes.map((node) => {
+          if (node.id !== selectedNode.id) {
+            return node;
+          }
+
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              ...patch,
+            },
+          };
+        }),
+      );
+    },
+    [selectedNode, setNodes],
+  );
+
   const schema = NODE_SCHEMAS.find((s) => s.kind === selectedNode?.data?.kind);
   return (
     <div
@@ -29,7 +59,15 @@ export const Properties = ({ selectedNode, onChange }: IPropsType) => {
         height: '100%',
       }}
     >
-      {!selectedNode && <div>Select a node</div>}
+      {!selectedNode && (
+        <div
+          style={{
+            padding: 12,
+          }}
+        >
+          Select a node
+        </div>
+      )}
 
       {selectedNode && (
         <div style={{ padding: 12 }}>
