@@ -29,10 +29,6 @@ export const LayoutRouteMenu: React.FC<{
     return match?.path;
   }, [location.pathname, routes]);
 
-  console.log(location.pathname);
-  console.log(options);
-  console.log(current);
-
   return (
     <Segmented
       size={isMobile ? 'medium' : 'large'}

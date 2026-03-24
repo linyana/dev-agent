@@ -25,6 +25,7 @@
     "@tauri-apps/plugin-dialog": "^2.6.0",
     "@tauri-apps/plugin-opener": "^2.5.3",
     "@tauri-apps/plugin-shell": "^2.3.5",
+    "@xyflow/react": "^12.10.1",
     "antd": "^6.3.3",
     "axios": "^1.13.6",
     "dayjs": "^1.11.20",
