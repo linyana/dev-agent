@@ -66,7 +66,7 @@ bun run build:api-binary
 bun run dev
 ```
 
-- Frontend (Vite): `http://localhost:5173`
+- Frontend (Vite): `http://localhost:48326`
 - Backend (Elysia): `http://localhost:48327`
 
 The React example page calls:
