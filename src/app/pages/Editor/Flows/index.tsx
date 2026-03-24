@@ -10,13 +10,12 @@ import {
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
-import { Sidebar } from '../Sidebar';
 
 const initialNodes = [
   {
     id: '1',
     type: 'input',
-    data: { label: 'input node' },
+    data: { label: 'input node', text: '2' },
     position: { x: 250, y: 5 },
   },
 ];
@@ -31,33 +30,16 @@ export const Flows = () => {
   );
 
   return (
-    <div
-      style={{
-        flexDirection: 'column',
-        display: 'flex',
-        flexGrow: 1,
-        height: '100%',
-      }}
+    <ReactFlow
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      onConnect={onConnect}
+      fitView
     >
-      
-      <div
-        style={{
-          flexGrow: 1,
-          height: '100%',
-        }}
-      >
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          fitView
-        >
-          <Controls />
-          <Background />
-        </ReactFlow>
-      </div>
-    </div>
+      <Controls />
+      <Background />
+    </ReactFlow>
   );
 };

@@ -1,4 +1,6 @@
 import { useDnDPosition } from '@/hooks';
+import { NodeCard } from '../Nodes/card';
+import { NODE_SCHEMAS } from '../Nodes/constants';
 
 interface DragGhostProps {
   type: string | null;
@@ -7,18 +9,20 @@ interface DragGhostProps {
 export const DragGhost = ({ type }: DragGhostProps) => {
   const { position } = useDnDPosition();
 
-  if (!position) return null;
+  const schema = NODE_SCHEMAS.find((s) => s.kind === type);
+
+  if (!position || !schema) return null;
 
   return (
     <div
       style={{
         position: 'fixed',
         pointerEvents: 'none',
-        width: '100px',
+        width: '200px',
         transform: `translate(${position.x}px, ${position.y - 138}px) translate(-50%, -50%)`,
       }}
     >
-      {type && `${type.charAt(0).toUpperCase() + type.slice(1)} Node`}
+      <NodeCard key={schema.kind} schema={schema} />
     </div>
   );
 };

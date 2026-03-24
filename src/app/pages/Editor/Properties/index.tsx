@@ -2,7 +2,7 @@
 
 import { theme, Form, Input, Select } from 'antd';
 import { type Node } from '@xyflow/react';
-import { NODE_SCHEMAS } from '../registry';
+import { NODE_SCHEMAS } from '../Nodes/constants';
 
 type IPropsType = {
   selectedNode?: Node<NodeData>;
