@@ -8,6 +8,7 @@ export type IStateType = {
   collapsed: boolean;
   permissions: PERMISSION[];
   project: {
+    id: string;
     name: string;
   } | null;
 };

@@ -56,15 +56,6 @@ export const BasicLayout = ({ children }: IPropsType) => {
           >
             {children}
           </Layout.Content>
-
-          <Layout.Footer
-            style={{
-              padding: LAYOUT.PADDING,
-              backgroundColor: 'transparent',
-            }}
-          >
-            <Footer />
-          </Layout.Footer>
         </Flex>
       </Flex>
     </Layout>

@@ -22,13 +22,5 @@ export const CenteredLayout = ({ children }: IPropsType) => (
     >
       {children}
     </Layout.Content>
-    <Layout.Footer
-      style={{
-        padding: LAYOUT.PADDING,
-        backgroundColor: '#fff',
-      }}
-    >
-      <Footer />
-    </Layout.Footer>
   </Layout>
 );

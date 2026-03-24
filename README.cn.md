@@ -67,7 +67,7 @@ bun run build:api-binary
 bun run dev
 ```
 
-- 前端（Vite）：`http://localhost:5173`
+- 前端（Vite）：`http://localhost:48326`
 - 后端（Elysia）：`http://localhost:48327`
 
 React 示例页面会调用：
