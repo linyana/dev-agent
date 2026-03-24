@@ -6,21 +6,22 @@ const { Text } = Typography;
 type Props = {
   schema: any;
   onDragStart?: (e: React.PointerEvent<HTMLDivElement>, schema: any) => void;
+  marginBottom?: number;
 };
 
-export const NodeCard = ({ schema, onDragStart }: Props) => {
+export const NodeCard = ({ schema, onDragStart, marginBottom = 8 }: Props) => {
   const { token } = theme.useToken();
 
   return (
     <Card
-      draggable
+      draggable={Boolean(onDragStart)}
       hoverable
       onPointerDown={(e) => onDragStart?.(e, schema)}
       styles={{
         root: {
           border: `1px solid ${schema.color || token.colorBorder}`,
-          marginBottom: 8,
-          cursor: 'grab',
+          marginBottom,
+          cursor: onDragStart ? 'grab' : 'default',
           backgroundColor: schema.bgColor,
         },
         body: {

@@ -2,13 +2,10 @@ import { useReactFlow, XYPosition } from '@xyflow/react';
 import { useCallback, useState } from 'react';
 import { OnDropAction, useDnD } from '@/hooks';
 import { DragGhost } from './ghost';
-import { Avatar, Card, Flex, theme, Typography } from 'antd';
-import { Icon } from '@/components';
+import { theme } from 'antd';
 import { nanoid } from 'nanoid';
 import { NODE_SCHEMAS } from '../Nodes/constants';
 import { NodeCard } from '../Nodes/card';
-
-const { Text } = Typography;
 
 export const createNodeFromSchema = (schema: any, position: XYPosition) => {
   const data: any = {
