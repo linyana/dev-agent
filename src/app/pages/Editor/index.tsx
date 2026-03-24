@@ -1,7 +1,7 @@
 import { Flex } from 'antd';
 import { Actions } from './Actions';
 import { Nodes } from './Nodes';
-import { Settings } from './Settings';
+import { Properties } from './Properties';
 import { Flows } from './Flows';
 
 export const Editor = () => {
@@ -15,12 +15,12 @@ export const Editor = () => {
       <Actions />
       <Flex
         style={{
-          height: '100%',
+          height: `calc(100% - 65px)`,
         }}
       >
         <Nodes />
         <Flows />
-        <Settings />
+        <Properties />
       </Flex>
     </div>
   );

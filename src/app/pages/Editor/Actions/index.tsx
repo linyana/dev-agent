@@ -13,7 +13,7 @@ export const Actions = () => {
         borderBottom: `1px solid ${colorBorder}`,
       }}
     >
-      <Button>Add Node</Button>
+      <Button type="primary">Run</Button>
     </Flex>
   );
 };
