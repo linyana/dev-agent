@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Flex, theme } from 'antd';
 
 export const Actions = () => {
